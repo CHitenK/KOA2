@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>KOA2</title>
+  <script type="application/javascript" src="./../libs/jq/jquery-1.9.1.min.js"></script>
+  <style>
+    .list-box{
+      width: 100%;
+      min-height: 1.066667rem;
+      border-bottom: solid 1px  #eeeeee;
+      padding: .266667rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="list-box">
+    <input type="text" class="input-value" name="name" />
+    <button onclick="commit()">修改姓名</button>
+    <br/>
+    姓名：<span id="name"></span>
+  </div>
+  <div class="list-box">
+    <button onclick="commitGet()">获取数据</button>
+  </div>
+  <div class="list-box">
+    <input type="number" name="age" />
+    <button onclick="changeAge()">修改年龄</button>
+    <br/>
+    年龄：<span id="age"></span>
+  </div>
+  <div class="list-box">
+    <button onclick="getFileData()">获取文件数据</button>
+  </div>
+  <div class="list-box">
+    <button onclick="writeFileData()">写入文件数据</button>
+  </div>
+  <div class="list-box">
+    <form id="form" action="/api/file/upload/img" method="POST" enctype="multipart/form-data">
+        <input type="file" id="upfile" name="image" />
+    </form>
+    <button onclick="uploadImg()">上传文件</button>
+  </div>
+
+</body>
+<script>
+function commitGet() {
+  $.ajax({
+    url: '/api/user/info',
+    type: 'get',
+    data: {
+      id: 21333
+    },
+    cache: false,
+    async : false,
+    success: function(res){
+      console.log(res.data)
+    }
+  })
+}
+function commit() { 
+  var val = $('.input-value').val()
+  $.ajax({
+    url: '/api/user/update',
+    type: 'post',
+    data: {
+      name: val
+    },
+    cache: false,
+    async : false,
+    success: function(res){
+      if (res.code === 'success') {
+        $('#name').text(res.data.name)
+      }
+    }
+  })
+}  
+function changeAge() {
+  var val = $("[name='age']").val()
+  $.ajax({
+    url: '/api/user/12133',
+    type: 'post',
+    data: {
+      age: +val
+    },
+    cache: false,
+    async : false,
+    success: function(res){
+      if (res.code === 'success') {
+        $('#name').text(res.data.name)
+      }
+    }
+  })
+}  
+function getFileData() {
+  $.ajax({
+    url: '/api/file/read',
+    type: 'get',
+    cache: false,
+    async : false,
+    success: function(res){
+      if (res.code === 'success') {
+        $('#name').text(res.data.name)
+      }
+    }
+  })
+} 
+function uploadImg() {
+  const formData = new FormData()
+  formData.append('file', document.getElementById("upfile").files[0])
+  $.ajax({
+    url: '/api/file/upload/img',
+    type: 'post',
+    cache: false,
+    async : false,
+    processData: false, //jquery 是否对数据进行 预处理
+    contentType: "multipart/form-data", // 不要自己修改请求内容类型
+    data: formData,
+    success: function(res){
+      if (res.code === 'success') {
+        $('#name').text(res.data.name)
+      }
+    }
+  })
+}   
+function writeFileData() {
+  $.ajax({
+    url: '/api/file/write',
+    type: 'post',
+    cache: false,
+    async : false,
+    success: function(res){
+      if (res.code === 'success') {
+        // $('#name').text(res.data.name)
+      }
+    }
+  })
+}
+</script>
+</html>
