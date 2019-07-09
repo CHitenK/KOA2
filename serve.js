@@ -5,6 +5,7 @@ const path = require('path');
 const serve = require('koa-static')
 
 // 1.主页静态网页 把静态页统一放到public中管理
+// const home   = serve(path.join(__dirname) + '/public/dist/' )
 const home   = serve(path.join(__dirname) + '/public/' )
 app.use(home)
 

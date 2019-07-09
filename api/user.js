@@ -6,7 +6,7 @@ const fs = require('fs')
 const Error = require('./../utils/error.js')
 const Success = require('./../utils/success.js')
 const path = require('path')
-
+const ModelDb = require('../db/index')
 
 console.log(__dirname)
 console.log(__filename)
@@ -24,6 +24,11 @@ const getUserData = {
       ctx.response.body = new Error({ message: '用户id不能为空' })
       return false
     }
+    await ModelDb.save({
+      num: 45,
+      name: 'ne',
+      size: '123'
+    })
     const fileData = await new Promise(function(reso,reje){
       fs.readFile('./JSON/user.json', 'utf8', function(err,data){
         if(err) 
@@ -43,7 +48,6 @@ const  updateUser  = {
   url: '/user/update',
   method: 'post',
   serve: async (ctx, next) => {
-    console.log(ctx.request.body)
     if (name) {
       const data = { name }
       ctx.response.body = new Success({ data })
@@ -58,6 +62,7 @@ const updateAge = {
   url: '/user/:id',
   method: 'post',
   serve: async (ctx, next) => {
+    console.log('12')
     const { age } = ctx.request.body
     if (age && typeof +age === 'number' && +age > 0 ) {
       const data = { age }

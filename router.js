@@ -7,8 +7,8 @@ const router = new Router({
 const user = require('./api/user.js')
 ergodicData(user)
 // 文件服务
-/* const file = require('./api/file.js')
-ergodicData(file) */
+const file = require('./api/file.js')
+ergodicData(file)
 
 // 遍历数据
 function ergodicData(data) {
