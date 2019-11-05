@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "koa-bodyparser": "^4.2.1",
-    "mongoose": "^5.6.4"
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "koa": "^2.7.0",
